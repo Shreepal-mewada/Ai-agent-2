@@ -4,7 +4,7 @@ import { tool } from "langchain";
 import * as z from "zod";
 
 export const listFiles = tool(
-  async ({}) => {
+  async ({}, config) => {
     const writer = config.writer;
     writer("Listing files in project directory...\n");
     const response = await axios.get(

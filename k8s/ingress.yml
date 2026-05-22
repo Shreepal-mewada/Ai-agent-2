@@ -40,19 +40,19 @@ spec:
               number: 80
 
 
-  - host: "*.preview.localhost"
+  - host: "*.preview.lvh.me"
     http:
       paths:
       - pathType: Prefix
         path: "/"
         backend:
-          service:
+          service:  
             name: router-service
             port: 
               number: 80
 
 
-  - host: "*.agent.localhost"
+  - host: "*.agent.lvh.me"
     http:
       paths:
       - pathType: Prefix
