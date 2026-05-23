@@ -70,7 +70,7 @@ export default function Terminal({ sandboxId }) {
   const connectSocket = useCallback((term) => {
     if (!sandboxId || !term) return
 
-    const agentHost = `http://${sandboxId}.agent.localhost`
+    const agentHost = `http://${sandboxId}.agent.lvh.me`
 
     try {
       const socket = io(agentHost, {
