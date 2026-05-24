@@ -3,6 +3,7 @@ import morgan from "morgan";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import http from "http";
 import { createProxyServer } from "httpxy";
+import { refreshTTL } from "./config/redis.js";
 
 const app = express();
 app.use(morgan("combined"));
@@ -49,10 +50,10 @@ wsProxy.on("error", (err, req, socket) => {
   socket?.destroy();
 });
 
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
   const host = req.headers.host;
   const sandboxId = host.split(".")[0]; // Extract sandboxId from subdomain
-
+  await refreshTTL(sandboxId); // Refresh TTL for the sandbox in Redis
   if (host.split(".")[1] === "agent") {
     return getAgentProxy(sandboxId)(req, res, next);
   } else if (host.split(".")[1] === "preview") {

@@ -1,1 +1,2 @@
 secrets.yml
+k8s/secret-*.yml
