@@ -2,7 +2,7 @@ import { Router } from "express";
 import User from "../models/user.model.js";
 import passport from "passport";
 import { sendAuthNotification } from "../config/mq.js";
-
+import jwt from "jsonwebtoken";
 const router = Router();
 
 router.get(
@@ -24,12 +24,12 @@ router.get(
       const { id, displayName, emails, photos } = req.user;
       let user = await User.findOne({ googleId: id });
 
-         await sendAuthNotification({
-            userId: user._id,
-            action: 'google_login',
-            timestamp: new Date(),
-            email: emails[ 0 ].value
-        })
+      await sendAuthNotification({
+        userId: user._id,
+        action: "google_login",
+        timestamp: new Date(),
+        email: emails[0].value,
+      });
 
       if (!user) {
         user = new User({
@@ -47,8 +47,8 @@ router.get(
       });
 
       // Set token in cookie
-      res.cookie("token", token, { httpOnly: true });
-      res.redirect("/"); // Redirect to your frontend after successful login
+       res.cookie('token', token);
+        res.redirect('http://localhost:5173'); // Redirect to your frontend after successful login
     } catch (err) {
       console.error("Error during Google authentication:", err);
       res.redirect("/"); // Redirect to your frontend on error
