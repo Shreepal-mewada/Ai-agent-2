@@ -35,6 +35,7 @@ build:
       docker:
         dockerfile: dockerfile
 
+
     - image: sync-agent
       context: sandbox/sync-agent
       docker:
@@ -74,4 +75,3 @@ manifests:
     - k8s/secret-aws.yml
     - k8s/notification-deployment.yml
     - k8s/notification-service.yml
-

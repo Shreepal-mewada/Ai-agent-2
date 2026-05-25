@@ -2,7 +2,9 @@ import express from 'express';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import sandboxRouter from './routes/sandbox.routes.js';
+// import dotenv from 'dotenv';
 
+// dotenv.config();
 
 const app = express();
 

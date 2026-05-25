@@ -5,10 +5,10 @@ metadata:
   annotations:
     # Time in seconds to wait for a response from the pod
     nginx.ingress.kubernetes.io/proxy-read-timeout: "6000"
-    
+
     # Time in seconds to wait for data to be sent to the pod
     nginx.ingress.kubernetes.io/proxy-send-timeout: "6000"
-    
+
     # Time in seconds to establish a connection to the pod
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "6000"
 
@@ -19,6 +19,7 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:5173"
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS, DELETE"
+
   labels:
     app.kubernetes.io/name: codespace-ingress
 spec:
@@ -43,18 +44,21 @@ spec:
             name: ai-service
             port: 
               number: 80
-  - http:
+
+
+  - host: "*.preview.lvh.me"
+    http:
       paths:
       - pathType: Prefix
-        path: "/api/auth"
+        path: "/"
         backend:
-          service:
-            name: auth-service
+          service:  
+            name: router-service
             port: 
               number: 80
 
 
-  - host: "*.preview.localhost"
+  - host: "*.agent.lvh.me"
     http:
       paths:
       - pathType: Prefix
@@ -62,17 +66,5 @@ spec:
         backend:
           service:
             name: router-service
-            port: 
-              number: 80
-
-
-  - host: "*.agent.localhost"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: router-service
-            port: 
+            port:
               number: 80
