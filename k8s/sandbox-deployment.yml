@@ -8,11 +8,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sandbox-manager
+      app: sandbox
   template:
     metadata:
       labels:
-        app: sandbox-manager
+        app: sandbox
     spec:
       serviceAccountName: resource-manager
       containers:
@@ -38,7 +38,7 @@ spec:
               secretKeyRef:
                 name: database
                 key: REDIS_URL
-
+                
           - name: JWT_SECRET
             valueFrom:
               secretKeyRef:
@@ -49,8 +49,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: database
-                key: SANDBOX      
-
+                key: SANDBOX
         readinessProbe:
           httpGet:
             path: /api/sandbox/health

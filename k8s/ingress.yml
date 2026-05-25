@@ -19,7 +19,6 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:5173"
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS, DELETE"
-
   labels:
     app.kubernetes.io/name: codespace-ingress
 spec:
@@ -44,7 +43,6 @@ spec:
             name: ai-service
             port: 
               number: 80
-
   - http:
       paths:
       - pathType: Prefix
@@ -56,19 +54,19 @@ spec:
               number: 80
 
 
-  - host: "*.preview.lvh.me"
+  - host: "*.preview.localhost"
     http:
       paths:
       - pathType: Prefix
         path: "/"
         backend:
-          service:  
+          service:
             name: router-service
             port: 
               number: 80
 
 
-  - host: "*.agent.lvh.me"
+  - host: "*.agent.localhost"
     http:
       paths:
       - pathType: Prefix
